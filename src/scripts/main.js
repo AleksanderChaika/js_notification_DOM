@@ -1,7 +1,44 @@
 'use strict';
 
 const pushNotification = (posTop, posRight, title, description, type) => {
-  // write code here
+  const allowedTypes = ['success', 'error', 'warning'];
+  const notificationType = allowedTypes.includes(type) ? type : 'warning';
+
+  const topPosition = typeof posTop === 'number' && posTop >= 0 ? posTop : 0;
+  const rightPosition =
+    typeof posRight === 'number' && posRight >= 0 ? posRight : 0;
+
+  const notificationTitle =
+    title && typeof title === 'string' ? title : 'No title';
+  const notificationDesc =
+    description && typeof description === 'string'
+      ? description
+      : 'No description';
+
+  const div = document.createElement('div');
+
+  div.classList.add('notification', notificationType);
+
+  div.style.top = topPosition + 'px';
+  div.style.right = rightPosition + 'px';
+
+  const h2 = document.createElement('h2');
+
+  h2.classList.add('title');
+  h2.textContent = notificationTitle;
+
+  const p = document.createElement('p');
+
+  p.textContent = notificationDesc;
+
+  div.appendChild(h2);
+  div.appendChild(p);
+
+  document.body.appendChild(div);
+
+  setTimeout(() => {
+    div.style.display = 'none';
+  }, 2000);
 };
 
 pushNotification(
