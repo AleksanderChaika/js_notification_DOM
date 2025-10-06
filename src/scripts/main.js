@@ -18,9 +18,13 @@ const pushNotification = (posTop, posRight, title, description, type) => {
   const div = document.createElement('div');
 
   div.classList.add('notification', notificationType);
+  div.setAttribute('role', 'status');
+  div.setAttribute('aria-live', 'polite');
 
-  div.style.top = topPosition + 'px';
-  div.style.right = rightPosition + 'px';
+  div.setAttribute(
+    'style',
+    `position: fixed; top: ${topPosition}px; right: ${rightPosition}px;`,
+  );
 
   const h2 = document.createElement('h2');
 
@@ -31,14 +35,10 @@ const pushNotification = (posTop, posRight, title, description, type) => {
 
   p.textContent = notificationDesc;
 
-  div.appendChild(h2);
-  div.appendChild(p);
-
+  div.append(h2, p);
   document.body.appendChild(div);
 
-  setTimeout(() => {
-    div.style.display = 'none';
-  }, 2000);
+  setTimeout(() => (div.style.display = 'none'), 2000);
 };
 
 pushNotification(
